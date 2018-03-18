@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="Infinity" maxWidth="Infinity" prefHeight="400.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="info.onixcoin.desktop.WalletSettingsController">
+    <children>
+        <AnchorPane maxHeight="400.0" maxWidth="600.0" styleClass="root-pane">
+            <children>
+                <HBox alignment="CENTER_LEFT" layoutX="26.0" prefHeight="68.0" prefWidth="600.0" styleClass="title-banner" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <children>
+                        <Label maxHeight="1.7976931348623157E308" styleClass="title-label" text="Ajustes">
+                            <font>
+                                <Font size="30.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                            <padding>
+                                <Insets left="20.0" right="20.0" />
+                            </padding>
+                        </Label>
+                    </children>
+                </HBox>
+                <TextArea fx:id="wordsArea" layoutX="22.0" layoutY="155.0" prefHeight="127.0" prefWidth="561.0" styleClass="mnemonic-area" text="brisk wood symptom party betray ozone dad super beyond sea memory power pig business extra" wrapText="true" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="17.0">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </TextArea>
+                <Label layoutX="22.0" layoutY="83.0" prefHeight="52.0" prefWidth="561.0" text="Estas son sus palabras de billetera. Anótelos junto con la fecha de creación, y puede recuperar su dinero incluso si pierde todos sus archivos de respaldo de billetera. ¡Simplemente escriba los detalles en la parte inferior para restaurar!" wrapText="true" />
+                <HBox alignment="CENTER_RIGHT" layoutX="22.0" layoutY="292.0" prefHeight="26.0" prefWidth="561.0" spacing="10.0" AnchorPane.rightAnchor="17.0">
+                    <children>
+                        <Label layoutX="64.0" layoutY="283.0" text="Creado en" />
+                        <DatePicker fx:id="datePicker" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_RIGHT" layoutX="272.0" layoutY="360.0" prefHeight="26.0" prefWidth="561.0" spacing="20.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="17.0">
+                    <children>
+                        <Button fx:id="passwordButton" mnemonicParsing="false" onAction="#passwordButtonClicked" text="Configurar contraseña" />
+                        <Button fx:id="restoreButton" mnemonicParsing="false" onAction="#restoreClicked" text="Restaurar de las palabras" HBox.hgrow="ALWAYS" />
+                        <Button defaultButton="true" layoutX="523.0" layoutY="360.0" maxWidth="80.0" mnemonicParsing="false" onAction="#closeClicked" text="Cerrar" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+            </children>
+            <effect>
+                <DropShadow />
+            </effect>
+        </AnchorPane>
+    </children>
+</StackPane>
