@@ -16,6 +16,8 @@
 
 package info.onixcoin.desktop.utils;
 
+import eu.hansolo.enzo.notification.Notification;
+import java.math.BigDecimal;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.bitcoinj.core.listeners.DownloadProgressTracker;
@@ -30,6 +32,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 import java.util.Date;
+import org.bitcoinj.wallet.listeners.WalletCoinsReceivedEventListener;
 
 /**
  * A class that exposes relevant bitcoin stuff as JavaFX bindable properties.
@@ -53,6 +56,36 @@ public class BitcoinUIModel {
         wallet.addChangeEventListener(new WalletChangeEventListener() {
             @Override
             public void onWalletChanged(Wallet wallet) {
+                update(wallet);
+            }
+            
+        });
+        wallet.addCoinsReceivedEventListener(new WalletCoinsReceivedEventListener() {
+            @Override
+            public synchronized void onCoinsReceived(Wallet w, Transaction tx, Coin prevBalance, Coin newBalance) {
+                System.out.println("\nReceived tx " + tx.getHashAsString());
+                System.out.println(tx.toString());
+                
+                try {
+                    String body = "Pago recibido Tx: " + tx.getHashAsString();
+                    Coin value = tx.getValue(wallet);
+                    BigDecimal satoshis = new BigDecimal(value.value);
+                    BigDecimal amountBTC = satoshis.divide(new BigDecimal(100000000));
+
+                    body += " ONX: " + satoshis;
+                    body += " balance:" + wallet.getBalance().toFriendlyString();
+                
+                    // Create a custom Notification without icon
+                    Notification info = new Notification("Pago recibido", amountBTC.toString() +" ONX");
+
+                    // Show the custom notification
+                    Notification.Notifier.INSTANCE.notify(info);
+
+                
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                
                 update(wallet);
             }
         });
