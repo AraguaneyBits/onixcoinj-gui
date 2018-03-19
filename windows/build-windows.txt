@@ -1,0 +1,14 @@
+Instalar launch4j
+
+http://launch4j.sourceforge.net/
+
+Crear el directorio
+
+C:\proyectos\build-windows\
+
+y copiar dentro los ficheros
+
+onixcoinj-gui.jar
+onixcoin.ico
+
+Abrir el archivo de configuración launch4j.xml y generar el .exe desde la tuerca de contruir.
