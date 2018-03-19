@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=onixcoinj-gui
+Comment=Monedero Onixcoin.info basado en Java
+Exec=/usr/bin/onixcoinj-gui
+Icon=/usr/share/doc/onixcoinj-gui/onixcoin.png
+Terminal=false
+Type=Application
+Categories=Unknown

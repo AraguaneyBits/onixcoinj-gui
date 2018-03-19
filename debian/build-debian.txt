@@ -1,0 +1,2 @@
+ dpkg --build onixcoinj-gui
+

@@ -1,0 +1,8 @@
+Package: onixcoinj-gui
+Version: 1.0
+Section: web 
+Priority: optional 
+Architecture: all 
+Maintainer: jestevez 
+Installed-Size: 10614085 
+Description: Monedero SPV Onixcoin.info

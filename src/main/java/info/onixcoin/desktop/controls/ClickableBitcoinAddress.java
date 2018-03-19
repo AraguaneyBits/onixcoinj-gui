@@ -87,7 +87,8 @@ public class ClickableBitcoinAddress extends AnchorPane {
     }
 
     public String uri() {
-        return BitcoinURI.convertToBitcoinURI(address.get(), null, Main.APP_NAME, null);
+       return address.get().toString();
+        //return BitcoinURI.convertToBitcoinURI(address.get(), null, Main.APP_NAME, null);
     }
 
     public Address getAddress() {
