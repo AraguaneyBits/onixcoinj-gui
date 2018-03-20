@@ -57,7 +57,7 @@ public class WalletPasswordController {
     public Main.OverlayUI overlayUI;
 
     private SimpleObjectProperty<KeyParameter> aesKey = new SimpleObjectProperty<>();
-
+    
     public void initialize() {
         progressMeter.setOpacity(0);
         Platform.runLater(pass1::requestFocus);
@@ -66,7 +66,8 @@ public class WalletPasswordController {
     @FXML void confirmClicked(ActionEvent event) {
         String password = pass1.getText();
         if (password.isEmpty() || password.length() < 4) {
-            informationalAlert("La contraseña es insegura", "La contraseña que ingresaste está vacía o muy corta.");
+            informationalAlert(Main.resourceBundle.getString("walletpassword.badpassword.title"), 
+                    Main.resourceBundle.getString("walletpassword.badpassword.message"));
             return;
         }
 
@@ -84,8 +85,8 @@ public class WalletPasswordController {
                     fadeIn(widgetGrid);
                     fadeIn(explanationLabel);
                     fadeIn(buttonsBox);
-                    informationalAlert("La contraseña es incorrecta",
-                            "Por favor intente ingresar su contraseña nuevamente, revisando cuidadosamente los errores tipográficos o de ortografía.");
+                    informationalAlert(Main.resourceBundle.getString("walletpassword.wrongpassword.title"),
+                            Main.resourceBundle.getString("walletpassword.wrongpassword.message"));
                 }
             }
         };

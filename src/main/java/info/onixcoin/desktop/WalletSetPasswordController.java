@@ -42,7 +42,7 @@ public class WalletSetPasswordController {
     public GridPane widgetGrid;
     public Button closeButton;
     public Label explanationLabel;
-
+    
     public Main.OverlayUI overlayUI;
     // These params were determined empirically on a top-range (as of 2014) MacBook Pro with native scrypt support,
     // using the scryptenc command line tool from the original scrypt distribution, given a memory limit of 40mb.
@@ -82,13 +82,15 @@ public class WalletSetPasswordController {
     @FXML
     public void setPasswordClicked(ActionEvent event) {
         if (!pass1.getText().equals(pass2.getText())) {
-            informationalAlert("Las contraseñas no coinciden", "Intente volver a escribir sus contraseñas elegidas.");
+            informationalAlert(Main.resourceBundle.getString("walletsetpassword.notmatch.title"),
+                    Main.resourceBundle.getString("walletsetpassword.notmatch.message"));
             return;
         }
         String password = pass1.getText();
         // This is kind of arbitrary and we could do much more to help people pick strong passwords.
         if (password.length() < 4) {
-            informationalAlert("Contraseña demasiado corta", "Debe elegir una contraseña de al menos cinco caracteres o más.");
+            informationalAlert(Main.resourceBundle.getString("walletsetpassword.short.title"), 
+                    Main.resourceBundle.getString("walletsetpassword.short.message"));
             return;
         }
 
@@ -110,8 +112,8 @@ public class WalletSetPasswordController {
                 log.info("Key derived, now encrypting");
                 Main.bitcoin.wallet().encrypt(scrypt, aesKey);
                 log.info("Encryption done");
-                informationalAlert("Monedero encriptado",
-                        "Puede eliminar la contraseña en cualquier momento desde la pantalla de configuración.");
+                informationalAlert(Main.resourceBundle.getString("walletsetpassword.isencrypted.title"),
+                        Main.resourceBundle.getString("walletsetpassword.isencrypted.message"));
                 overlayUI.done();
             }
         };

@@ -3,11 +3,11 @@
 }
 
 .title-banner {
-    -fx-background-color: #b3fbc4;
+    -fx-background-color: #C49C1D;
 }
 
 .title-label {
-    -fx-background-color: darkseagreen;
+    -fx-background-color: #C49C1D;
     -fx-text-fill: white;
 }
 
@@ -29,7 +29,6 @@
 .info-bar > .progress-bar > .track {
     -fx-opacity: 0.0;
 }
-
 
 .fat-button {
     -fx-padding: 10 15 10 15;
@@ -55,4 +54,13 @@
     -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
     -fx-background-radius: 3;
     -fx-text-fill: black;
+}
+.table-cell {
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+}
+
+.hyperlink {
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
 }

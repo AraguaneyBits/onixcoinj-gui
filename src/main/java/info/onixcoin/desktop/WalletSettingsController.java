@@ -56,7 +56,6 @@ public class WalletSettingsController {
     @FXML Button restoreButton;
 
     public Main.OverlayUI overlayUI;
-
     private KeyParameter aesKey;
 
     // Note: NOT called by FXMLLoader!
@@ -73,7 +72,7 @@ public class WalletSettingsController {
             this.aesKey = aesKey;
             seed = seed.decrypt(checkNotNull(Main.bitcoin.wallet().getKeyCrypter()), "", aesKey);
             // Now we can display the wallet seed as appropriate.
-            passwordButton.setText("Remove password");
+            passwordButton.setText(Main.resourceBundle.getString("walletsettings.btnremove"));
         }
 
         // Set the date picker to show the birthday of this wallet.
@@ -150,21 +149,20 @@ public class WalletSettingsController {
         // Don't allow a restore unless this wallet is presently empty. We don't want to end up with two wallets, too
         // much complexity, even though WalletAppKit will keep the current one as a backup file in case of disaster.
         if (Main.bitcoin.wallet().getBalance().value > 0) {
-            informationalAlert("La billetera no está vacía",
-                    "Debe vaciar esta billetera antes de intentar restaurar una billetera anterior, como carteras de mezcla " +
-                            "juntos pueden conducir a copias de seguridad invalidadas.");
+            informationalAlert(Main.resourceBundle.getString("walletsettings.notempty.title"),
+                    Main.resourceBundle.getString("walletsettings.notempty.message"));
             return;
         }
 
         if (aesKey != null) {
             // This is weak. We should encrypt the new seed here.
-            informationalAlert("La billetera está encriptada",
-                    "Después de la restauración, la billetera dejará de estar encriptada y deberá establecer una nueva contraseña");
+            informationalAlert(Main.resourceBundle.getString("walletsettings.isencrypted.title"),
+                    Main.resourceBundle.getString("walletsettings.isencrypted.message"));
         }
 
         log.info("Attempting wallet restore using seed '{}' from date {}", wordsArea.getText(), datePicker.getValue());
-        informationalAlert("Restauración de billetera en progreso",
-                "Su billetera ahora se volverá a sincronizar desde la red de Onixcoin. Esto puede llevar mucho tiempo para billeteras viejas.");
+        informationalAlert(Main.resourceBundle.getString("walletsettings.restoreinprogress.title"),
+                Main.resourceBundle.getString("walletsettings.restoreinprogress.message"));
         overlayUI.done();
         Main.instance.controller.restoreFromSeedAnimation();
 
@@ -187,8 +185,9 @@ public class WalletSettingsController {
             Main.instance.overlayUI("wallet_set_password.fxml");
         } else {
             Main.bitcoin.wallet().decrypt(aesKey);
-            informationalAlert("Monedero descifrado", "Ya no será necesaria una contraseña para enviar dinero o editar configuraciones.");
-            passwordButton.setText("Set password");
+            informationalAlert(Main.resourceBundle.getString("walletsettings.isdecrypted.title"), 
+                    Main.resourceBundle.getString("walletsettings.isdecrypted.message"));
+            passwordButton.setText(Main.resourceBundle.getString("walletsettings.btnsetpassword"));
             aesKey = null;
         }
     }

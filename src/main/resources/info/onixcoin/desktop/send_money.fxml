@@ -16,7 +16,7 @@
       <children>
             <HBox fx:id="topHBox" alignment="CENTER_LEFT" spacing="15.0">
                <children>
-              <Label fx:id="titleLabel" text="Enviar">
+              <Label fx:id="titleLabel" text="%sendmoney.send">
                 <font>
                   <Font size="25.0" />
                 </font>
@@ -31,7 +31,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="15.0">
                <children>
-                  <Label text="a">
+                  <Label text="%sendmoney.to">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -45,8 +45,8 @@
             </HBox>
         <HBox alignment="CENTER_RIGHT" fillHeight="true" prefHeight="30.0" prefWidth="600.0" spacing="15.0" VBox.vgrow="NEVER">
           <children>
-            <Button fx:id="cancelBtn" cancelButton="true" mnemonicParsing="false" onAction="#cancel" prefWidth="79.0" text="Cancelar" />
-            <Button fx:id="sendBtn" defaultButton="true" mnemonicParsing="false" onAction="#send" prefWidth="79.0" text="Enviar" />
+            <Button fx:id="cancelBtn" cancelButton="true" mnemonicParsing="false" onAction="#cancel" prefWidth="79.0" text="%sendmoney.btncancel" />
+            <Button fx:id="sendBtn" defaultButton="true" mnemonicParsing="false" onAction="#send" prefWidth="79.0" text="%sendmoney.btnsend" />
           </children>
         </HBox>
       </children>

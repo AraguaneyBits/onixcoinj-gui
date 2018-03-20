@@ -45,12 +45,9 @@ import org.onixcoinj.params.OnixcoinMainNetParams;
 import static info.onixcoin.desktop.utils.GuiUtils.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ResourceBundle;
 import javafx.scene.image.Image;
 import org.bitcoinj.core.PeerAddress;
-import org.bitcoinj.core.PeerGroup;
-import org.bitcoinj.net.BlockingClientManager;
 
 public class Main extends Application {
     public static NetworkParameters params = OnixcoinMainNetParams.get();
@@ -66,11 +63,11 @@ public class Main extends Application {
     public MainController controller;
     public NotificationBarPane notificationBar;
     public Stage mainWindow;
-
+    public static ResourceBundle resourceBundle;
     @Override
     public void start(Stage mainWindow) throws Exception {
         try {
-            
+            resourceBundle = ResourceBundle.getBundle("bundle_i18n");
             realStart(mainWindow);
         } catch (Exception e) {
             GuiUtils.crashAlert(e);
@@ -92,7 +89,9 @@ public class Main extends Application {
 
         // Load the GUI. The MainController class will be automagically created and wired up.
         URL location = getClass().getResource("main.fxml");
+       
         FXMLLoader loader = new FXMLLoader(location);
+        loader.setResources(resourceBundle);
         mainUI = loader.load();
         controller = loader.getController();
         // Configure the window with a StackPane so we can overlay things on top of the main UI, and a
@@ -106,7 +105,7 @@ public class Main extends Application {
         TextFieldValidator.configureScene(scene);   // Add CSS that we need.
         scene.getStylesheets().add(getClass().getResource("wallet.css").toString());
         uiStack.getChildren().add(notificationBar);
-        
+
         
 //          
         
@@ -114,8 +113,8 @@ public class Main extends Application {
 
         MainController controller = loader.getController();
         controller.setHostServices(getHostServices());
-        
-        
+
+
         mainWindow.setScene(scene);
 
         // Make log output concise.
@@ -129,7 +128,7 @@ public class Main extends Application {
         setupWalletKit(null);
 
         if (bitcoin.isChainFileLocked()) {
-            informationalAlert("Ya se esta ejecutando", "Esta aplicación ya se está ejecutando y no se puede iniciar dos veces.");
+            informationalAlert(resourceBundle.getString("main.isrunning.title"), resourceBundle.getString("main.isrunning.message"));
             Platform.exit();
             return;
         }
@@ -261,6 +260,7 @@ public class Main extends Application {
             // Load the UI from disk.
             URL location = GuiUtils.getResource(name);
             FXMLLoader loader = new FXMLLoader(location);
+            loader.setResources(ResourceBundle.getBundle("bundle_i18n"));
             Pane ui = loader.load();
             T controller = loader.getController();
             OverlayUI<T> pair = new OverlayUI<T>(ui, controller);

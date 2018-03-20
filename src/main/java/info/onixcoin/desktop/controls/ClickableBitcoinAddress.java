@@ -17,7 +17,6 @@
 package info.onixcoin.desktop.controls;
 
 import org.bitcoinj.core.Address;
-import org.bitcoinj.uri.BitcoinURI;
 import de.jensd.fx.fontawesome.AwesomeDude;
 import de.jensd.fx.fontawesome.AwesomeIcon;
 import javafx.beans.binding.StringExpression;
@@ -63,10 +62,11 @@ public class ClickableBitcoinAddress extends AnchorPane {
 
     protected SimpleObjectProperty<Address> address = new SimpleObjectProperty<>();
     private final StringExpression addressStr;
-
+    
     public ClickableBitcoinAddress() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("bitcoin_address.fxml"));
+            loader.setResources(Main.resourceBundle);
             loader.setRoot(this);
             loader.setController(this);
             // The following line is supposed to help Scene Builder, although it doesn't seem to be needed for me.
@@ -74,10 +74,10 @@ public class ClickableBitcoinAddress extends AnchorPane {
             loader.load();
 
             AwesomeDude.setIcon(copyWidget, AwesomeIcon.COPY);
-            Tooltip.install(copyWidget, new Tooltip("Copiar la dirección al portapapeles"));
-
+            Tooltip.install(copyWidget, new Tooltip(Main.resourceBundle.getString("address.tooltip.copy")));
+ 
             AwesomeDude.setIcon(qrCode, AwesomeIcon.QRCODE);
-            Tooltip.install(qrCode, new Tooltip("Mostrar un código de barras escaneable con un teléfono móvil para esta dirección"));
+            Tooltip.install(qrCode, new Tooltip(Main.resourceBundle.getString("address.tooltip.qr" )));
 
             addressStr = convert(address);
             addressLabel.textProperty().bind(addressStr);
@@ -125,7 +125,7 @@ public class ClickableBitcoinAddress extends AnchorPane {
                     Desktop.getDesktop().browse(URI.create(uri()));
                 }
             } catch (IOException e) {
-                GuiUtils.informationalAlert("Error al abrir la aplicación de billetera", "Quizás no tienes uno instalado?");
+                GuiUtils.informationalAlert(Main.resourceBundle.getString("address.requestmoney.title"), Main.resourceBundle.getString("address.requestmoney.message"));
             }
         }
     }

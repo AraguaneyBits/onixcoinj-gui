@@ -34,6 +34,7 @@ import java.net.URL;
 import java.util.function.BiConsumer;
 
 import static com.google.common.base.Preconditions.checkState;
+import info.onixcoin.desktop.Main;
 import static info.onixcoin.desktop.utils.WTUtils.unchecked;
 
 public class GuiUtils {
@@ -45,6 +46,7 @@ public class GuiUtils {
             Stage dialogStage = new Stage();
             dialogStage.initModality(Modality.APPLICATION_MODAL);
             FXMLLoader loader = new FXMLLoader(GuiUtils.class.getResource("alert.fxml"));
+            loader.setResources(Main.resourceBundle);
             Pane pane = loader.load();
             AlertWindowController controller = loader.getController();
             setup.accept(dialogStage, controller);

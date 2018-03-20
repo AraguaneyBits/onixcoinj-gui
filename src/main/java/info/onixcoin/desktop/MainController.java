@@ -39,6 +39,8 @@ import info.onixcoin.desktop.utils.easing.EasingMode;
 import info.onixcoin.desktop.utils.easing.ElasticInterpolator;
 
 import static info.onixcoin.desktop.Main.bitcoin;
+import static info.onixcoin.desktop.Main.resourceBundle;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import javafx.application.HostServices;
@@ -48,6 +50,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.paint.Color;
 
 /**
  * Gets created auto-magically by FXMLLoader via reflection. The widget fields are set to the GUI controls they're named
@@ -58,7 +61,7 @@ public class MainController {
     public Label balance;
     public Button sendMoneyOutBtn;
     public ClickableBitcoinAddress addressControl;
-
+    
     private BitcoinUIModel model = new BitcoinUIModel();
     private NotificationBarPane.Item syncItem;
     public TableView<Transaction> transactionsList = new TableView<>();
@@ -106,13 +109,18 @@ public class MainController {
 
         Bindings.bindContent(transactionsList.getItems(), model.getTransactions());
 
-        
+        txColumn.prefWidthProperty().bind(transactionsList.widthProperty().divide(2));
+        cantidadColumn.prefWidthProperty().bind(transactionsList.widthProperty().divide(5));
+        estatusColumn.prefWidthProperty().bind(transactionsList.widthProperty().divide(5));
+        fechaColumn.prefWidthProperty().bind(transactionsList.widthProperty().divide(5));
         
         txColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Transaction, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Transaction, String> p) {
                 
                 Hyperlink hyperlink = new Hyperlink(p.getValue().getHashAsString()); 
+//                hyperlink.setStyle("-fx-text-fill: black");
+//                hyperlink.setStyle("-fx-background-color: yellow");
                 hyperlink.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
@@ -126,27 +134,36 @@ public class MainController {
             }
         });
          
-        
+        cantidadColumn.setStyle("-fx-alignment: CENTER-RIGHT;");
         cantidadColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Transaction, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Transaction, String> p) {
                 Transaction tx = p.getValue();
                 Coin value = tx.getValue(Main.bitcoin.wallet());
-                return new ReadOnlyObjectWrapper(MonetaryFormat.BTC.format(value).toString().replace("BTC", "ONX"));
+                BigDecimal satoshis = new BigDecimal(value.value);
+                BigDecimal amountBTC = satoshis.divide(new BigDecimal(100000000));
+                return new ReadOnlyObjectWrapper(amountBTC.toString());
             }
         });
         
+        estatusColumn.setStyle("-fx-alignment: CENTER;");
         estatusColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Transaction, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Transaction, String> p) {
                 Transaction tx = p.getValue();
                 Coin value = tx.getValue(Main.bitcoin.wallet());
-                String estatus = "Enviado";
+                
+                String estatus = Main.resourceBundle.getString("status.sent");
                 if(value.isPositive()) {
-                    estatus = "Recibido";
+                    if(tx.isPending()) {
+                        estatus = Main.resourceBundle.getString("status.pending");
+                    }
+                    else {
+                        estatus = Main.resourceBundle.getString("status.received");
+                    }                    
                 }
                 else if (value.isNegative()) {
-                   estatus = "Enviado";
+                   estatus = Main.resourceBundle.getString("status.sent");
                 }  
                 return new ReadOnlyObjectWrapper(estatus);
             }
@@ -162,18 +179,19 @@ public class MainController {
                 }
                 else if (value.isNegative()) {
                     Address address = tx.getOutput(0).getAddressFromP2PKHScript(Main.params);
-                    descripcion = address.toString();
+                    descripcion = address!= null ? address.toString() : "";
                 }
                 
                 return new ReadOnlyObjectWrapper(descripcion);
             }
         });
         
+        fechaColumn.setStyle("-fx-alignment: CENTER;");
         fechaColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Transaction, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Transaction, String> p) {
                 Transaction tx = p.getValue();
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                DateFormat dateFormat = new SimpleDateFormat(Main.resourceBundle.getString("app.date.format"));
                 return new ReadOnlyObjectWrapper(dateFormat.format(tx.getUpdateTime()));
             }
         });
@@ -182,7 +200,7 @@ public class MainController {
     }
 
     private void showBitcoinSyncMessage() {
-        syncItem = Main.instance.notificationBar.pushItem("Synchronising with the Onixcoin network", model.syncProgressProperty());
+        syncItem = Main.instance.notificationBar.pushItem(Main.resourceBundle.getString("app.sync"), model.syncProgressProperty());
     }
 
     public void sendMoneyOut(ActionEvent event) {

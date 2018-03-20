@@ -16,6 +16,7 @@
 
 package info.onixcoin.desktop.utils;
 
+import info.onixcoin.desktop.Main;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -27,9 +28,12 @@ public class AlertWindowController {
     public Button cancelButton;
     public Button actionButton;
 
-    /** Initialize this alert dialog for information about a crash. */
+    /** Initialize this alert dialog for information about a crash.
+     * @param stage
+     * @param crashMessage */
     public void crashAlert(Stage stage, String crashMessage) {
-        messageLabel.setText("Unfortunately, we screwed up and the app crashed. Sorry about that!");
+        
+        messageLabel.setText(Main.resourceBundle.getString("app.fail"));
         detailsLabel.setText(crashMessage);
 
         cancelButton.setVisible(false);
@@ -37,7 +41,10 @@ public class AlertWindowController {
         okButton.setOnAction(actionEvent -> stage.close());
     }
 
-    /** Initialize this alert for general information: OK button only, nothing happens on dismissal. */
+    /** Initialize this alert for general information: OK button only, nothing happens on dismissal.
+     * @param stage
+     * @param message
+     * @param details */
     public void informational(Stage stage, String message, String details) {
         messageLabel.setText(message);
         detailsLabel.setText(details);

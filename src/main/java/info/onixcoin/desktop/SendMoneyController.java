@@ -34,7 +34,6 @@ import info.onixcoin.desktop.utils.WTUtils;
 
 import static com.google.common.base.Preconditions.checkState;
 import static info.onixcoin.desktop.utils.GuiUtils.*;
-
 import javax.annotation.Nullable;
 
 public class SendMoneyController {
@@ -49,7 +48,7 @@ public class SendMoneyController {
 
     private Wallet.SendResult sendResult;
     private KeyParameter aesKey;
-
+    
     // Called by FXMLLoader
     public void initialize() {
         Coin balance = Main.bitcoin.wallet().getBalance();
@@ -99,8 +98,8 @@ public class SendMoneyController {
             ((HBox)btcLabel.getParent()).getChildren().remove(btcLabel);
             updateTitleForBroadcast();
         } catch (InsufficientMoneyException e) {
-            informationalAlert("No se pudo vaciar la billetera",
-                    "Puede que le quede muy poco dinero en la billetera para realizar una transacción.");
+            informationalAlert(Main.resourceBundle.getString("send.insufficientmoney.title"),
+                    Main.resourceBundle.getString("send.insufficientmoney.message") );
             overlayUI.done();
         } catch (ECKey.KeyIsEncryptedException e) {
             askForPasswordAndRetry();
@@ -125,6 +124,6 @@ public class SendMoneyController {
 
     private void updateTitleForBroadcast() {
         final int peers = sendResult.tx.getConfidence().numBroadcastPeers();
-        titleLabel.setText(String.format("Broadcasting ... seen by %d peers", peers));
+        titleLabel.setText(String.format(Main.resourceBundle.getString("send.broadcasting"), peers));
     }
 }
