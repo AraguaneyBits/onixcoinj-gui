@@ -41,3 +41,16 @@ For your security, do not share your seed, save it in digital files or emails th
 * Write your seed in a safe place
 * Secure your Onix! do not forget to create a password since your wallet is stored in your Home directory and if you do not have it encrypted you can lose your Onix
 * where is my wallet? you can find ${HOME}/onixcoinj-gui/ONIXCOIN-WALLET-BETA-info.onixcoin.production.wallet
+
+### Creator's note
+
+If you want to contribute to this project you can send any donation to
+
+* ONX: XTo7XEAgPapkgJkgH6iR31J4cHBxwTgREe
+* BTC: 1YeyoCJ2bS7Dhac6MjypFELXYhf3HLMgX
+
+### Issues, Errors, Comments, Contributions
+
+If you know how to make a pull request to contribute a fix, please write the correction and use a pull request to submit it for consideration against the develop branch. If you are making several changes, please use a separate commit for each to make it easier to cherry-pick or resolve conflicts. Otherwise, please submit an issue, explaining the error or comment.
+
+
