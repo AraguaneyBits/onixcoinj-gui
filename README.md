@@ -35,3 +35,9 @@ If you want to try the operation you can visit this testing online tools https:/
 * In Client select MultiBitHD
 
 For your security, do not share your seed, save it in digital files or emails that can be accessed by malicious applications or virus. We recommend you write it down on a piece of paper and keep it in a safe place
+
+### Getting Start
+
+* Write your seed in a safe place
+* Secure your Onix! do not forget to create a password since your wallet is stored in your Home directory and if you do not have it encrypted you can lose your Onix
+* where is my wallet? you can find ${HOME}/onixcoinj-gui/ONIXCOIN-WALLET-BETA-info.onixcoin.production.wallet
