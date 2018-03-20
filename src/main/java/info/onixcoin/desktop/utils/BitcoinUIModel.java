@@ -17,6 +17,9 @@
 package info.onixcoin.desktop.utils;
 
 import eu.hansolo.enzo.notification.Notification;
+import eu.hansolo.enzo.notification.NotificationBuilder;
+import eu.hansolo.enzo.notification.NotifierBuilder;
+import info.onixcoin.desktop.Main;
 import java.math.BigDecimal;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,6 +34,11 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.geometry.Pos;
+import javafx.scene.image.Image;
+import javafx.util.Duration;
 import org.bitcoinj.wallet.listeners.WalletCoinsReceivedEventListener;
 
 /**
@@ -50,7 +58,7 @@ public class BitcoinUIModel {
         setWallet(wallet);
     }
 
-
+    private Notification.Notifier notifier;
     public final void setWallet(Wallet wallet) {
         wallet.addChangeEventListener(new WalletChangeEventListener() {
             @Override
@@ -66,25 +74,50 @@ public class BitcoinUIModel {
                 System.out.println(tx.toString());
                 
                 try {
+                    
                     String body = "Pago recibido Tx: " + tx.getHashAsString();
                     Coin value = tx.getValue(wallet);
+                    String estatus;
+                    if(value.isPositive()) {
+                         estatus = Main.resourceBundle.getString("notification.received");
+                    }
+                    else {
+                         estatus = Main.resourceBundle.getString("notification.sending");
+                    }
                     BigDecimal satoshis = new BigDecimal(value.value);
                     BigDecimal amountBTC = satoshis.divide(new BigDecimal(100000000));
 
                     body += " ONX: " + satoshis;
                     body += " balance:" + wallet.getBalance().toFriendlyString();
                 
-                    // Create a custom Notification without icon
-                    Notification info = new Notification("Pago recibido", amountBTC.toString() +" ONX");
+//                    // Create a custom Notification without icon
+//                    Notification info = new Notification(estatus, amountBTC.toString() +" ONX", new Image(getClass().getResourceAsStream("/info/onixcoin/desktop/onixcoin.png")));
+//                    
+//                    // Show the custom notification
+//                    Notification.Notifier.INSTANCE.notify(info);
+                    
+                        notifier = NotifierBuilder.create()
+                                .popupLocation(Pos.BOTTOM_RIGHT)
+                                .popupLifeTime(Duration.millis(10_000))
+                                .height(100.0d).owner(Main.instance.mainWindow)
+                                .build();
 
-                    // Show the custom notification
-                    Notification.Notifier.INSTANCE.notify(info);
+                        Notification notification = NotificationBuilder.create()   
+                            .title(estatus)
+                            .message(amountBTC.toString() +" ONX")
+                            .image(Notification.SUCCESS_ICON)
+                            .build();
+                        
+                        
+                        Platform.runLater(() -> notifier.notify(notification));
 
-                
+                        notifier.setOnHideNotification(event ->  notifier.stop());
+                        
+                        
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
-                
+                            }
+                    
                 update(wallet);
             }
         });

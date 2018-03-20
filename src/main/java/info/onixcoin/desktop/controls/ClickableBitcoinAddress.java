@@ -66,7 +66,7 @@ public class ClickableBitcoinAddress extends AnchorPane {
     public ClickableBitcoinAddress() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("bitcoin_address.fxml"));
-            loader.setResources(Main.resourceBundle);
+            //loader.setResources(Main.resourceBundle);
             loader.setRoot(this);
             loader.setController(this);
             // The following line is supposed to help Scene Builder, although it doesn't seem to be needed for me.

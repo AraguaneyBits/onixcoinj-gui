@@ -45,6 +45,7 @@ import org.onixcoinj.params.OnixcoinMainNetParams;
 import static info.onixcoin.desktop.utils.GuiUtils.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.scene.image.Image;
 import org.bitcoinj.core.PeerAddress;
@@ -67,6 +68,7 @@ public class Main extends Application {
     @Override
     public void start(Stage mainWindow) throws Exception {
         try {
+            Locale.setDefault(Locale.ENGLISH);
             resourceBundle = ResourceBundle.getBundle("bundle_i18n");
             realStart(mainWindow);
         } catch (Exception e) {

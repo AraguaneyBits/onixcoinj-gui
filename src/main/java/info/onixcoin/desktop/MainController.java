@@ -40,9 +40,12 @@ import info.onixcoin.desktop.utils.easing.ElasticInterpolator;
 
 import static info.onixcoin.desktop.Main.bitcoin;
 import static info.onixcoin.desktop.Main.resourceBundle;
+import static info.onixcoin.desktop.utils.GuiUtils.informationalAlert;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.HostServices;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
@@ -50,7 +53,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.paint.Color;
+
 
 /**
  * Gets created auto-magically by FXMLLoader via reflection. The widget fields are set to the GUI controls they're named
@@ -211,6 +214,26 @@ public class MainController {
     public void settingsClicked(ActionEvent event) {
         Main.OverlayUI<WalletSettingsController> screen = Main.instance.overlayUI("wallet_settings.fxml");
         screen.controller.initialize(null);
+    }
+    
+    public void about(ActionEvent event) {
+        informationalAlert(Main.resourceBundle.getString("menu.about.title"), 
+                    Main.resourceBundle.getString("menu.about.message"));
+            return;
+    }
+    
+    public void report(ActionEvent event) {
+        getHostServices().showDocument("https://github.com/jestevez/onixcoinj-gui/issues");
+    }
+    public void website(ActionEvent event) {
+        getHostServices().showDocument("https://www.onixcoin.info/wallet");
+    }
+     public void exit(ActionEvent event) {
+        try {
+            Main.instance.stop();
+        } catch (Exception ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void restoreFromSeedAnimation() {
