@@ -1,4 +1,5 @@
-Build status: [![Build Status](https://travis-ci.org/jestevez/onixcoinj-gui.svg?branch=master)](https://travis-ci.org/jestevez/onixcoinj-gui) 
+
+[![Pre-Release](https://jitpack.io/v/jestevez/onixcoinj-gui.svg)](https://jitpack.io/#jestevez/onixcoinj-gui)
 
 Project status: Beta. Expect minor bugs and UI adjustments. Suitable for small scale production.
 
