@@ -54,7 +54,7 @@
             <Hyperlink onAction="#goYeyoPage" layoutX="29.0" layoutY="331.0" text="https://www.joseluisestevez.com" />
             <Text layoutX="29.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%app.version" />
             <Text layoutX="29.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%app.licence" />
-            <Text layoutX="491.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%app.powerby" />
+            <Text layoutX="480.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%app.powerby" />
             </children>
             <effect>
                 <DropShadow />

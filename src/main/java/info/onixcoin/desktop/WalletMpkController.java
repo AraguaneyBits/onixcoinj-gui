@@ -67,7 +67,7 @@ public class WalletMpkController {
         qrXpub.setImage(qrImage);
         
         AwesomeDude.setIcon(copyWidget, AwesomeIcon.COPY);
-        Tooltip.install(copyWidget, new Tooltip("Copy Master Public Key to Clickboard"));
+        Tooltip.install(copyWidget, new Tooltip(Main.resourceBundle.getString("walletspk.tooltip.copyxpub")));
     }
 
     private void askForPasswordAndRetry() {
