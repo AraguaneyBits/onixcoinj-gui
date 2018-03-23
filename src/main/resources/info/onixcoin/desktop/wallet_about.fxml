@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="Infinity" maxWidth="Infinity" prefHeight="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="info.onixcoin.desktop.WalletAboutController">
+    <children>
+        <AnchorPane maxHeight="400.0" maxWidth="600.0" styleClass="root-pane">
+            <children>
+                <HBox alignment="CENTER_LEFT" layoutX="26.0" prefHeight="68.0" prefWidth="600.0" styleClass="title-banner" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <children>
+                        <Label maxHeight="1.7976931348623157E308" styleClass="title-label" text="%about.title">
+                            <font>
+                                <Font size="30.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                            <padding>
+                                <Insets left="20.0" right="20.0" />
+                            </padding>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_RIGHT" layoutX="272.0" layoutY="360.0" prefHeight="26.0" prefWidth="561.0" spacing="20.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="17.0">
+                    <children>
+                        <Button defaultButton="true" layoutX="523.0" layoutY="360.0" maxWidth="80.0" mnemonicParsing="false" onAction="#closeClicked" text="%about.btnclose" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="383.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@araguaneybits.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="29.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%about.onixcoinj" wrappingWidth="551.13671875" />
+            <Text layoutX="29.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%about.aragueneybits" wrappingWidth="551.13671875" />
+            <Hyperlink onAction="#goAraguaneyBits" layoutX="29.0" layoutY="285.0" text="https://www.araguaneybits.com" />
+            <Hyperlink onAction="#goGithub" layoutX="29.0" layoutY="308.0" text="https://github.com/jestevez/onixcoinj-gui" />
+            <Hyperlink onAction="#goYeyoPage" layoutX="29.0" layoutY="331.0" text="https://www.joseluisestevez.com" />
+            <Text layoutX="29.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%app.version" />
+            <Text layoutX="29.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%app.licence" />
+            <Text layoutX="491.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%app.powerby" />
+            </children>
+            <effect>
+                <DropShadow />
+            </effect>
+        </AnchorPane>
+    </children>
+</StackPane>

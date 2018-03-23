@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?scenebuilder-classpath-element ../../../../target/classes?>
-<?import info.onixcoin.desktop.controls.ClickableBitcoinAddress?>
+<?scenebuilder-classpath-element ../../../../../core/target/onixcoinj-gui-0.14-SNAPSHOT.jar?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import info.onixcoin.desktop.controls.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -19,31 +27,36 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="menu-bar-container" maxHeight="Infinity" maxWidth="Infinity" minHeight="200.0" minWidth="300.0" prefHeight="483.0" prefWidth="800.0" styleClass="menu-bar" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="info.onixcoin.desktop.MainController">
+<AnchorPane id="menu-bar-container" maxHeight="Infinity" maxWidth="Infinity" minHeight="200.0" minWidth="300.0" prefHeight="483.0" prefWidth="800.0" styleClass="menu-bar" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="info.onixcoin.desktop.MainController">
 
     <children>
         <MenuBar id="menu-bar" layoutX="44.7" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0">
-            <Menu text="%menu.wallet">
-                <items>
-                    <MenuItem text="%menu.send" onAction="#sendMoneyOut"/>
-                    <MenuItem text="%menu.setting" onAction="#settingsClicked" />
-                    <MenuItem text="%menu.exit"  onAction="#exit" />
-                </items>
-            </Menu>
-            <Menu text="%menu.help">
-                <items>
-                    <MenuItem text="%menu.about" onAction="#about"/>
-                    <MenuItem text="%menu.issue" onAction="#report"/>
-                    <MenuItem text="%menu.website" onAction="#website"/>
-                </items>
-            </Menu>
+           <menus>
+               <Menu text="%menu.wallet">
+                   <items>
+                       <!--
+                       <MenuItem text="%menu.send" onAction="#sendMoneyOut"/>
+                       -->
+                       <MenuItem onAction="#settingsClicked" text="%menu.setting" />
+                       <MenuItem onAction="#viewMpk" text="%menu.mpk" />
+                       <MenuItem onAction="#exit" text="%menu.exit" />
+                   </items>
+               </Menu>
+               <Menu text="%menu.help">
+                   <items>
+                       <MenuItem onAction="#about" text="%menu.about" />
+                       <MenuItem onAction="#report" text="%menu.issue" />
+                       <MenuItem onAction="#website" text="%menu.website" />
+                   </items>
+               </Menu>
+           </menus>
         </MenuBar>
-    <Label layoutX="24.0" layoutY="43.0" text="%main.balance" AnchorPane.topAnchor="30.0">
+    <Label layoutX="23.0" layoutY="33.0" prefHeight="36.0" prefWidth="178.0" text="%main.balance" AnchorPane.topAnchor="33.0">
       <font>
         <Font name="System Bold" size="25.0" fx:id="x1" />
       </font>
     </Label>
-    <HBox alignment="CENTER_LEFT" layoutX="156.0" layoutY="43.0" prefHeight="30.0" prefWidth="305.0" AnchorPane.leftAnchor="156.0" AnchorPane.rightAnchor="156.0" AnchorPane.topAnchor="30.0">
+    <HBox alignment="CENTER_LEFT" layoutX="207.0" layoutY="35.0" prefHeight="32.0" prefWidth="369.0" AnchorPane.leftAnchor="207.0" AnchorPane.rightAnchor="240.0" AnchorPane.topAnchor="35.0">
       <children>
         <Label fx:id="balance" text="0.00" underline="false">
           <font>
@@ -72,10 +85,12 @@
         <Image url="@onixcoin.png" />
       </image>
     </ImageView>
-    <ClickableBitcoinAddress fx:id="addressControl" layoutX="40" layoutY="45.0" prefHeight="41.0" prefWidth="391.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="195.0" AnchorPane.topAnchor="65.0"/>
+    
+    <ClickableBitcoinAddress fx:id="addressControl" layoutX="40" layoutY="45.0" prefHeight="41.0" prefWidth="391.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="195.0" AnchorPane.topAnchor="65.0" />
+    
     <StackPane layoutX="24.0" layoutY="81.0" prefHeight="249.0" prefWidth="572.0" style="-fx-border-color: lightgrey; -fx-border-style: dashed" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="90.0">
          <children>
-            <TableView fx:id="transactionsList" opacity="0.45" prefHeight="364.0" prefWidth="751.0" tableMenuButtonVisible="true" AnchorPane.topAnchor="60.0">
+            <TableView fx:id="transactionsList" opacity="0.8" prefHeight="364.0" prefWidth="751.0" tableMenuButtonVisible="true" AnchorPane.topAnchor="60.0">
               <columns>
                 <TableColumn fx:id="estatusColumn" prefWidth="112.0" text="%main.status" />
                 <TableColumn fx:id="fechaColumn" prefWidth="170.0" text="%main.date" />
@@ -88,12 +103,12 @@
             </TableView>
          </children>
     </StackPane>
-    <HBox layoutY="43.0" prefHeight="0.0" prefWidth="258.0" spacing="10" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="40.0">
+    <HBox layoutX="583.0" layoutY="44.0" prefHeight="36.0" prefWidth="208.0" spacing="10" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="44.0">
        <children>
            <!--
            <Button onAction="#settingsClicked" style="-fx-base: white;" styleClass="fat-button" text="%main.setting" />
            -->
-           <Button id="sendMoneyOut"  prefWidth="200"  fx:id="sendMoneyOutBtn" alignment="CENTER" mnemonicParsing="false" onAction="#sendMoneyOut" style="-fx-base: lightgreen; -fx-font-weight: bold" styleClass="fat-button" text="%main.send" AnchorPane.rightAnchor="15.0" />
+           <Button id="sendMoneyOut" fx:id="sendMoneyOutBtn" alignment="CENTER" mnemonicParsing="false" onAction="#sendMoneyOut" prefHeight="35.0" prefWidth="200" style="-fx-base: lightgreen; -fx-font-weight: bold" styleClass="fat-button" text="%main.send" textAlignment="RIGHT" AnchorPane.rightAnchor="15.0" />
        </children>
     </HBox>
   </children>

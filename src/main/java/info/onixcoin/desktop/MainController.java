@@ -39,8 +39,6 @@ import info.onixcoin.desktop.utils.easing.EasingMode;
 import info.onixcoin.desktop.utils.easing.ElasticInterpolator;
 
 import static info.onixcoin.desktop.Main.bitcoin;
-import static info.onixcoin.desktop.Main.resourceBundle;
-import static info.onixcoin.desktop.utils.GuiUtils.informationalAlert;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -53,6 +51,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -60,6 +59,7 @@ import javafx.scene.control.TableView;
  * after. This class handles all the updates and event handling for the main UI.
  */
 public class MainController {
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(MainController.class);
     public HBox controlsBox;
     public Label balance;
     public Button sendMoneyOutBtn;
@@ -216,23 +216,27 @@ public class MainController {
         screen.controller.initialize(null);
     }
     
+    public void viewMpk(ActionEvent event) {
+        Main.OverlayUI<WalletMpkController> screen = Main.instance.overlayUI("wallet_mpk.fxml");
+        screen.controller.initialize(null);
+    }
+ 
+    
     public void about(ActionEvent event) {
-        informationalAlert(Main.resourceBundle.getString("menu.about.title"), 
-                    Main.resourceBundle.getString("menu.about.message"));
-            return;
+         Main.instance.overlayUI("wallet_about.fxml");
     }
     
     public void report(ActionEvent event) {
         getHostServices().showDocument("https://github.com/jestevez/onixcoinj-gui/issues");
     }
     public void website(ActionEvent event) {
-        getHostServices().showDocument("https://www.onixcoin.info/wallet");
+        getHostServices().showDocument("https://www.onixcoin.info");
     }
      public void exit(ActionEvent event) {
         try {
             Main.instance.stop();
         } catch (Exception ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("fail exit system... {}", ex);
         }
     }
 

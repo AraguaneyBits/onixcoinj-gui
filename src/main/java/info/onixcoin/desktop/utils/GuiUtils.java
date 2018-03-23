@@ -36,8 +36,10 @@ import java.util.function.BiConsumer;
 import static com.google.common.base.Preconditions.checkState;
 import info.onixcoin.desktop.Main;
 import static info.onixcoin.desktop.utils.WTUtils.unchecked;
+import org.slf4j.LoggerFactory;
 
 public class GuiUtils {
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(GuiUtils.class);
     public static void runAlert(BiConsumer<Stage, AlertWindowController> setup) {
         try {
             // JavaFX2 doesn't actually have a standard alert template. Instead the Scene Builder app will create FXML
@@ -53,12 +55,14 @@ public class GuiUtils {
             dialogStage.setScene(new Scene(pane));
             dialogStage.showAndWait();
         } catch (IOException e) {
+            LOG.error("runAlert fail {} ", e);
             // We crashed whilst trying to show the alert dialog (this should never happen). Give up!
             throw new RuntimeException(e);
         }
     }
 
     public static void crashAlert(Throwable t) {
+        LOG.error("crashAlert {} ", t);
         t.printStackTrace();
         Throwable rootCause = Throwables.getRootCause(t);
         Runnable r = () -> {

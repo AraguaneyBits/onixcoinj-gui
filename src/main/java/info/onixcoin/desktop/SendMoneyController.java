@@ -35,8 +35,10 @@ import info.onixcoin.desktop.utils.WTUtils;
 import static com.google.common.base.Preconditions.checkState;
 import static info.onixcoin.desktop.utils.GuiUtils.*;
 import javax.annotation.Nullable;
+import org.slf4j.LoggerFactory;
 
 public class SendMoneyController {
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(SendMoneyController.class);
     public Button sendBtn;
     public Button cancelBtn;
     public TextField address;
@@ -98,10 +100,12 @@ public class SendMoneyController {
             ((HBox)btcLabel.getParent()).getChildren().remove(btcLabel);
             updateTitleForBroadcast();
         } catch (InsufficientMoneyException e) {
+            LOG.error("InsufficientMoneyException {} ", e.getMessage());
             informationalAlert(Main.resourceBundle.getString("send.insufficientmoney.title"),
                     Main.resourceBundle.getString("send.insufficientmoney.message") );
             overlayUI.done();
         } catch (ECKey.KeyIsEncryptedException e) {
+            LOG.error("KeyIsEncryptedException {} ", e.getMessage());
             askForPasswordAndRetry();
         }
     }

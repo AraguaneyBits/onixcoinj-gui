@@ -25,8 +25,8 @@
         </layout>
     </appender>
     -->
-    <logger name="org.onixcoinj" level="INFO"/>
-    <root level="INFO">
+    <logger name="org.onixcoinj" level="ERROR"/>
+    <root level="ERROR">
         <!--
         <appender-ref ref="STDOUT"/>
         -->

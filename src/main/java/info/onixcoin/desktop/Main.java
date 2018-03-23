@@ -47,13 +47,14 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javafx.application.HostServices;
 import javafx.scene.image.Image;
 import org.bitcoinj.core.PeerAddress;
 
 public class Main extends Application {
     public static NetworkParameters params = OnixcoinMainNetParams.get();
-    public static final String APP_NAME = "ONIXCOIN-WALLET-BETA";
-    private static final String WALLET_FILE_NAME = APP_NAME.replaceAll("[^a-zA-Z0-9.-]", "_") + "-"
+    public static final String APP_NAME = "AraguaneyBits Onixcoin Wallet";
+    private static final String WALLET_FILE_NAME = APP_NAME.toLowerCase().replaceAll("[^a-zA-Z0-9.-]", "_") + "-"
             + params.getPaymentProtocolId();
 
     public static WalletAppKit bitcoin;
@@ -68,13 +69,24 @@ public class Main extends Application {
     @Override
     public void start(Stage mainWindow) throws Exception {
         try {
-            Locale.setDefault(Locale.ENGLISH);
+            Locale currentLocale = Locale.getDefault();
+            if("es".equalsIgnoreCase(System.getProperty("user.language")) 
+                    || "es".equalsIgnoreCase(currentLocale.getLanguage()) ) {
+                Locale.setDefault(new Locale("es"));
+            }
+            else {
+                Locale.setDefault(Locale.ENGLISH);
+            }
             resourceBundle = ResourceBundle.getBundle("bundle_i18n");
             realStart(mainWindow);
         } catch (Exception e) {
             GuiUtils.crashAlert(e);
             throw e;
         }
+    }
+    
+    public HostServices getMainHostServices() {
+        return getHostServices() ;
     }
 
     private void realStart(Stage mainWindow) throws IOException {
@@ -115,8 +127,7 @@ public class Main extends Application {
 
         MainController controller = loader.getController();
         controller.setHostServices(getHostServices());
-
-
+       
         mainWindow.setScene(scene);
 
         // Make log output concise.
@@ -168,7 +179,7 @@ public class Main extends Application {
         
         
         try {
-             
+            // Forze sync with my public node... node.onixcoin.info
             InetAddress addr = InetAddress.getByName("node.onixcoin.info");
             PeerAddress address =  new PeerAddress(addr);
             address.setPort(41016);

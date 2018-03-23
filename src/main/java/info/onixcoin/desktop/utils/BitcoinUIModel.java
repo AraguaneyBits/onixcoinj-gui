@@ -34,17 +34,16 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.geometry.Pos;
-import javafx.scene.image.Image;
 import javafx.util.Duration;
 import org.bitcoinj.wallet.listeners.WalletCoinsReceivedEventListener;
+import org.slf4j.LoggerFactory;
 
 /**
  * A class that exposes relevant bitcoin stuff as JavaFX bindable properties.
  */
 public class BitcoinUIModel {
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(BitcoinUIModel.class);
     private SimpleObjectProperty<Address> address = new SimpleObjectProperty<>();
     private SimpleObjectProperty<Coin> balance = new SimpleObjectProperty<>(Coin.ZERO);
     private SimpleDoubleProperty syncProgress = new SimpleDoubleProperty(-1);
@@ -70,8 +69,8 @@ public class BitcoinUIModel {
         wallet.addCoinsReceivedEventListener(new WalletCoinsReceivedEventListener() {
             @Override
             public synchronized void onCoinsReceived(Wallet w, Transaction tx, Coin prevBalance, Coin newBalance) {
-                System.out.println("\nReceived tx " + tx.getHashAsString());
-                System.out.println(tx.toString());
+//                System.out.println("\nReceived tx " + tx.getHashAsString());
+//                System.out.println(tx.toString());
                 
                 try {
                     
@@ -115,8 +114,8 @@ public class BitcoinUIModel {
                         
                         
                 } catch (Exception e) {
-                    e.printStackTrace();
-                            }
+                    LOG.error("onCoinsReceived {}", e);
+                }
                     
                 update(wallet);
             }
