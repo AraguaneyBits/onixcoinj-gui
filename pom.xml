@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>info.onixcoin</groupId>
     <artifactId>onixcoinj-gui</artifactId>
-    <version>0.14.4.1-SNAPSHOT</version>
+    <version>0.14.5.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>onixcoinj-gui</name>
     
@@ -96,10 +96,10 @@
     </repositories>
     <dependencies>
         <dependency>
-	    <groupId>com.github.jestevez</groupId>
-	    <artifactId>onixcoinj</artifactId>
-	    <version>0.14-SNAPSHOT</version>
-	</dependency>
+            <groupId>com.github.jestevez</groupId>
+            <artifactId>onixcoinj</artifactId>
+            <version>0.14-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>org.fxmisc.easybind</groupId>
@@ -123,6 +123,11 @@
             <artifactId>Enzo</artifactId>
             <version>0.3.6</version>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180130</version>
+        </dependency>
     </dependencies>
 </project>
