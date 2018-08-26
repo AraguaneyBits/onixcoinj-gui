@@ -98,7 +98,7 @@
         <dependency>
 	    <groupId>com.github.jestevez</groupId>
 	    <artifactId>onixcoinj</artifactId>
-	    <version>0.14-SNAPSHOT</version>
+	    <version>0.14.1-RELEASE</version>
 	</dependency>
 
         <dependency>
