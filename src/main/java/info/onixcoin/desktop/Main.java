@@ -178,15 +178,15 @@ public class Main extends Application {
         
         
         
-        try {
-            // Forze sync with my public node... node.onixcoin.info
-            InetAddress addr = InetAddress.getByName("node.onixcoin.info");
-            PeerAddress address =  new PeerAddress(addr);
-            address.setPort(41016);
-            bitcoin.setPeerNodes(address);
-        } catch (UnknownHostException ex) {
-           ex.printStackTrace();
-        }
+//        try {
+//            // Forze sync with my public node... node.onixcoin.info
+//            InetAddress addr = InetAddress.getByName("node.onixcoin.info");
+//            PeerAddress address =  new PeerAddress(addr);
+//            address.setPort(41016);
+//            bitcoin.setPeerNodes(address);
+//        } catch (UnknownHostException ex) {
+//           ex.printStackTrace();
+//        }
         
         
         // Now configure and start the appkit. This will take a second or two - we could show a temporary splash screen
